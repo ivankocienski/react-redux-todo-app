@@ -1,0 +1,30 @@
+main {
+    margin: 10px;
+}
+
+main ul#todo-list {
+    width: 500px;
+}
+
+ul#todo-list li {
+    background-color: #fff;
+    color: #000;
+    padding: 10px;
+}
+
+ul#todo-list li.done.item {
+    opacity: 60%;
+}
+
+ul#todo-list li.item a {
+    display: none;
+}
+
+ul#todo-list li.item:hover a {
+    display: inline;
+    color: #777;
+}
+
+ul#todo-list li.item:hover a:hover {
+    color: #000;
+}

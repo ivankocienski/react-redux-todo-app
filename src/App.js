@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import {connect} from 'react-redux';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import PrimaryScreen from './primary-screen';
+
+import 
+  { addItemActionFor, removeItemActionFor, toggleFilterAction, completeItemActionFor} 
+  from './todo-item-store';
+
+function stateMapper(state) {
+  return {...state};
 }
 
-export default App;
+function dispatchMapper(dispatch) {
+  return () => {
+    return {
+      actions: {
+        addItem: (name) => dispatch(addItemActionFor(name)),
+        removeItem: (id) => dispatch(removeItemActionFor(id)),
+        completeItem: (id) => dispatch(completeItemActionFor(id)),
+        toggleFilter: () => dispatch(toggleFilterAction)
+      }
+    }
+  };
+}
+
+const AppStore = connect(stateMapper, dispatchMapper)(PrimaryScreen);
+
+export default AppStore;
