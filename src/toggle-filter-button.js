@@ -5,7 +5,12 @@ export default function ToggleFilterButton(props) {
         ? "showing all"
         : "showing only open items";
 
+    let toggleAction = event => {
+        event.preventDefault();
+        props.action();
+    }
+
     return(
-        <a href='#' onClick={props.action}>Toggle Filter ({showState})</a>
+        <a href='#toggle-filter' onClick={toggleAction}>Toggle Filter ({showState})</a>
     );
 }

@@ -13,7 +13,7 @@ function PrimaryScreen(props) {
           items={props.items} 
           showAll={props.showAll} 
           actions={props.actions}/>
-          
+
       </main>
       <Footer />
     </>

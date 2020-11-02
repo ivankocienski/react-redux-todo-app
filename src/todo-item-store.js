@@ -1,3 +1,5 @@
+/*
+
 import _ from 'lodash';
 
 export function generateID() {
@@ -11,7 +13,8 @@ function makeStore(idGenerator) {
             { id: idGenerator(), title: "Second item", done: false },
             { id: idGenerator(), title: "Third item", done: true },
             { id: idGenerator(), title: "More items follow", done: true },
-            { id: idGenerator(), title: "No", done: false },
+            { id: idGenerator(), title: ".", done: false },
+            { id: idGenerator(), title: "A long item that goes on and on about something very very important. Type less!", done: false },
             { id: idGenerator(), title: "Etcetera", done: false }
         ],
         showAll: false
@@ -56,7 +59,7 @@ function doCompleteItem(state, id) {
             doneItem.done = true;
             return doneItem;
         }
-        
+
         return item;
     });
 
@@ -76,9 +79,7 @@ function doToggleFilter(state) {
     return newState;
 }
 
-/*
-~~~~~~~~~~~~~D
-*/
+
 
 function todoItemReducerGenerator(idFunction) {
     return function(state, action) {
@@ -106,6 +107,7 @@ function todoItemReducerGenerator(idFunction) {
     }
 }
 
+export const loadItemsAction = { type: "LOAD_ITEMS" };
 export const addItemAction = { type: "ADD_ITEM", name: "" };
 export const removeItemAction = { type: "REMOVE_ITEM", id: 0 };
 export const toggleFilterAction = { type: "TOGGLE_FILTER" };
@@ -141,3 +143,5 @@ export function filterItems(items, hideDone) {
 }
 
 export default todoItemReducerGenerator;
+
+*/

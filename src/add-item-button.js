@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import './add-item-button.css';
+
 class AddItemButton extends Component {
 
     constructor(props) {
@@ -35,7 +37,7 @@ class AddItemButton extends Component {
         return(
             <form id="add_item" onSubmit={this.handleSubmit}>
                 <input type="text" value={this.state.value} onChange={this.handleChange} />
-                <button id="addItem">Add item</button>
+                <button id="addItem" type="submit">Add item</button>
             </form>
         )
     }
