@@ -13,7 +13,7 @@ const initialState = {
 
 const reducers = {
     addItem: (state, action) => {
-        let {name} = action;
+        let name = action.payload;
 
         let item = {
             id: generateID(),
@@ -33,7 +33,7 @@ const reducers = {
     },
     
     removeItem: (state, action) => {
-        let {id} = action;
+        let id = action.payload;
 
         let newItems = _.filter(
             state.items,
@@ -48,7 +48,7 @@ const reducers = {
     },
     
     completeItem: (state, action) => {
-        let {id} = action;
+        let id = action.payload;
         
         let newItems = state.items.map( item => {
             if(item.id === id) {
@@ -69,16 +69,25 @@ const reducers = {
     }
 }
 
+// slice
 export const todoSlice = createSlice({
     name: 'todo',
     initialState,
     reducers
 });
 
+// actions
 export const {
     addItem,
     removeItem,
     completeItem
 } = todoSlice.actions;
 
-export default todoSlice.reducers;
+// selectors
+export const itemsSelector = (state) => {
+    console.log("itemSelector: state=", state);
+    return state.item.items;
+}
+
+// reducer
+export default todoSlice.reducer;

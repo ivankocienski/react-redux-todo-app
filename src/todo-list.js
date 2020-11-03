@@ -1,8 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+
 import AddItemButton from './add-item-button';
 import GraphicButton from './graphic-button';
-import ToggleFilterButton from './toggle-filter-button'
+//import ToggleFilterButton from './toggle-filter-button'
 //import {filterItems} from './todo-item-store';
+
+import {
+    addItem,
+    removeItem,
+    completeItem,
+    itemsSelector
+} from './todo-slice';
 
 import './todo-list.css';
 
@@ -22,7 +31,6 @@ function TodoItem(props) {
         }
     
         completeComponent = <GraphicButton source="/img/checkbox.png" action={completeItem} title="Complete item" />;
-        //<a href={completeID} onClick={completeItem}>(complete)</a>;
 
     } else {
         className += " done";
@@ -41,21 +49,17 @@ function TodoItem(props) {
     );
 }
 
-/*
-        <li className={className}>
-            {props.name}
-            {completeComponent}
-            <a href={removeID} onClick={removeItem}>(delete)</a></li>
-*/
-
-class ToDoList extends Component {
+/*class ToDoList extends Component {
     
     componentWillMount() {
         console.log("ToDoList::componentWillMount");
-    }
+    }*/
 
-    render(props) {
-        let {items, actions, showAll} = props;
+function ToDoList () /* render() */ {
+        const items = useSelector(itemsSelector);
+        const dispatch = useDispatch();
+
+        //let {items, actions, showAll} = props;
 
         let showItems = items; //filterItems(items, showAll);
 
@@ -65,14 +69,14 @@ class ToDoList extends Component {
                 id={item.id}
                 done={item.done}
                 name={item.title} 
-                removeItem={actions.removeItem} 
-                completeItem={actions.completeItem} /> );
+                removeItem={dispatch(removeItem(item.id))} 
+                completeItem={dispatch(completeItem(item.id))} /> );
 
         return(
             <ul id="todo-list">
                 {renderItems}
                 <li className="actions">
-                    <AddItemButton addItem={actions.addItem} />
+                    <AddItemButton addItem={name => dispatch(addItem(name))} />
                 </li>
                 <li className="actions">
                     {/*<ToggleFilterButton action={actions.toggleFilter} showAll={showAll}/> */}
@@ -80,6 +84,6 @@ class ToDoList extends Component {
             </ul>
         );
     }
-}
+//}
 
 export default ToDoList;

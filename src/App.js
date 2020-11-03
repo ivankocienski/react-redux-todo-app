@@ -1,3 +1,21 @@
+import Header from './header';
+import Footer from './footer';
+import TodoList from './todo-list';
+
+function App(props) {
+  return (
+    <>
+      <Header />
+      <main>
+        <TodoList />
+      </main>
+      <Footer />
+    </>
+  );
+}
+export default App;
+
+/*
 import {connect} from 'react-redux';
 
 import PrimaryScreen from './primary-screen';
@@ -6,12 +24,12 @@ import
   { addItemActionFor, removeItemActionFor, toggleFilterAction, completeItemActionFor, loadItemsAction} 
   from './todo-item-store';
 
-/************/
+/.************./
 // thunkers //
-/************/
+/.************./
 
-/* function demoThunk(dispatch, getState) {
-} */
+/.* function demoThunk(dispatch, getState) {
+} *./
 
 function stateMapper(state) {
   return {...state};
@@ -35,3 +53,4 @@ function dispatchMapper(dispatch) {
 const AppStore = connect(stateMapper, dispatchMapper)(PrimaryScreen);
 
 export default AppStore;
+*/
