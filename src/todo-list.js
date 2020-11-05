@@ -1,16 +1,18 @@
-import React, { Component, useState } from 'react';
+import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import AddItemButton from './add-item-button';
 import GraphicButton from './graphic-button';
-//import ToggleFilterButton from './toggle-filter-button'
+import ToggleFilterButton from './toggle-filter-button'
 //import {filterItems} from './todo-item-store';
 
 import {
     addItem,
     removeItem,
     completeItem,
-    itemsSelector
+    setShowAllFilter,
+    itemsSelector,
+    showAllSelector
 } from './todo-slice';
 
 import './todo-list.css';
@@ -49,41 +51,32 @@ function TodoItem(props) {
     );
 }
 
-/*class ToDoList extends Component {
-    
-    componentWillMount() {
-        console.log("ToDoList::componentWillMount");
-    }*/
-
 function ToDoList () /* render() */ {
-        const items = useSelector(itemsSelector);
-        const dispatch = useDispatch();
+    const items = useSelector(itemsSelector);
+    const dispatch = useDispatch();
+    const showAll = useSelector(showAllSelector);
 
-        //let {items, actions, showAll} = props;
+    let renderItems = items.map( item => 
+        <TodoItem 
+            key={item.id.toString()}
+            id={item.id}
+            done={item.done}
+            name={item.title} 
+            removeItem={() => dispatch(removeItem(item.id))} 
+            completeItem={() => dispatch(completeItem(item.id))} /> );
 
-        let showItems = items; //filterItems(items, showAll);
-
-        let renderItems = showItems.map( item => 
-            <TodoItem 
-                key={item.id.toString()}
-                id={item.id}
-                done={item.done}
-                name={item.title} 
-                removeItem={dispatch(removeItem(item.id))} 
-                completeItem={dispatch(completeItem(item.id))} /> );
-
-        return(
-            <ul id="todo-list">
-                {renderItems}
-                <li className="actions">
-                    <AddItemButton addItem={name => dispatch(addItem(name))} />
-                </li>
-                <li className="actions">
-                    {/*<ToggleFilterButton action={actions.toggleFilter} showAll={showAll}/> */}
-                </li>
-            </ul>
-        );
-    }
+    return(
+        <ul id="todo-list">
+            {renderItems}
+            <li className="actions">
+                <AddItemButton addItem={name => dispatch(addItem(name))} />
+            </li>
+            <li className="actions">
+                <ToggleFilterButton action={show => dispatch(setShowAllFilter(show))} showAll={showAll}/>
+            </li>
+        </ul>
+    );
+}
 //}
 
 export default ToDoList;

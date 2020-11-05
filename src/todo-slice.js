@@ -8,11 +8,14 @@ export function generateID() {
 }
 
 const initialState = {
-    items: []
+    items: [],
+    showAll: false
 };
 
 const reducers = {
     addItem: (state, action) => {
+        console.log("addItem: state=", state);
+
         let name = action.payload;
 
         let item = {
@@ -21,36 +24,41 @@ const reducers = {
             done: false
         };
     
-        let newItems = [...state.items];
-        newItems = newItems.concat(item);
+        state.items = state.items.concat(item);
+
+        //let newItems = [...state.items];
+        //newItems = newItems.concat(item);
     
-        let newState = {
-            items: newItems,
-            showAll: state.showAll
-        }
+        //let newState = {
+            //items: newItems,
+            //showAll: state.showAll
+        //}
     
-        return newState;
+        //return newState;
     },
     
     removeItem: (state, action) => {
+        console.log("removeItem: state=", state);
+
         let id = action.payload;
 
-        let newItems = _.filter(
+        state.items = _.filter(
             state.items,
             (l) => l.id !== id);
     
-        let newState = {
+        /*let newState = {
             items: newItems,
             showAll: state.showAll
         }
     
-        return newState;
+        return newState;*/
     },
     
     completeItem: (state, action) => {
+        console.log("completeItem: state=", state);
         let id = action.payload;
         
-        let newItems = state.items.map( item => {
+        state.items = state.items.map( item => {
             if(item.id === id) {
                 let doneItem = {...item};
                 doneItem.done = true;
@@ -59,19 +67,24 @@ const reducers = {
     
             return item;
         });
-    
+    },
+
+    setShowAllFilter: (state, action) => {
+        let filterSet = action.payload;
+
+        //state.items.showAll = filterSet;
         let newState = {
-            items: newItems,
-            showAll: state.showAll
-        }
-    
+            ...state,
+            showAll: filterSet
+        };
+
         return newState;
     }
 }
 
 // slice
 export const todoSlice = createSlice({
-    name: 'todo',
+    name: 'item',
     initialState,
     reducers
 });
@@ -80,14 +93,25 @@ export const todoSlice = createSlice({
 export const {
     addItem,
     removeItem,
+    setShowAllFilter,
     completeItem
 } = todoSlice.actions;
 
 // selectors
 export const itemsSelector = (state) => {
     console.log("itemSelector: state=", state);
-    return state.item.items;
+    let {showAll, items} = state.item;
+
+    if(showAll === true) {
+        return items;
+    }
+
+    return _.filter(
+        items,
+        (l) => l.done === false);
 }
+
+export const showAllSelector = state => state.item.showAll;
 
 // reducer
 export default todoSlice.reducer;
