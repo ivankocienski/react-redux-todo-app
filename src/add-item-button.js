@@ -16,7 +16,6 @@ class AddItemButton extends Component {
     }
 
     handleChange(event) {
-        console.log("form: change");
         this.setState({ value: event.target.value });
     }
 
@@ -27,8 +26,6 @@ class AddItemButton extends Component {
 
         if(value.length > 0) {
             this.setState({ value: "" });
-
-            console.log("form: submit  value=", value);
             this.props.addItem(value);
         }
     }

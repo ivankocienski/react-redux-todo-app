@@ -4,7 +4,6 @@ import {useSelector, useDispatch} from 'react-redux';
 import AddItemButton from './add-item-button';
 import GraphicButton from './graphic-button';
 import ToggleFilterButton from './toggle-filter-button'
-//import {filterItems} from './todo-item-store';
 
 import {
     addItem,
@@ -51,7 +50,7 @@ function TodoItem(props) {
     );
 }
 
-function ToDoList () /* render() */ {
+function ToDoList () {
     const items = useSelector(itemsSelector);
     const dispatch = useDispatch();
     const showAll = useSelector(showAllSelector);
@@ -77,6 +76,5 @@ function ToDoList () /* render() */ {
         </ul>
     );
 }
-//}
 
 export default ToDoList;

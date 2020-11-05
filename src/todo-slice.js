@@ -14,8 +14,6 @@ const initialState = {
 
 const reducers = {
     addItem: (state, action) => {
-        console.log("addItem: state=", state);
-
         let name = action.payload;
 
         let item = {
@@ -25,37 +23,17 @@ const reducers = {
         };
     
         state.items = state.items.concat(item);
-
-        //let newItems = [...state.items];
-        //newItems = newItems.concat(item);
-    
-        //let newState = {
-            //items: newItems,
-            //showAll: state.showAll
-        //}
-    
-        //return newState;
     },
     
     removeItem: (state, action) => {
-        console.log("removeItem: state=", state);
-
         let id = action.payload;
 
         state.items = _.filter(
             state.items,
             (l) => l.id !== id);
-    
-        /*let newState = {
-            items: newItems,
-            showAll: state.showAll
-        }
-    
-        return newState;*/
     },
     
     completeItem: (state, action) => {
-        console.log("completeItem: state=", state);
         let id = action.payload;
         
         state.items = state.items.map( item => {
@@ -72,7 +50,6 @@ const reducers = {
     setShowAllFilter: (state, action) => {
         let filterSet = action.payload;
 
-        //state.items.showAll = filterSet;
         let newState = {
             ...state,
             showAll: filterSet
@@ -99,7 +76,6 @@ export const {
 
 // selectors
 export const itemsSelector = (state) => {
-    console.log("itemSelector: state=", state);
     let {showAll, items} = state.item;
 
     if(showAll === true) {
